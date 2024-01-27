@@ -13,18 +13,17 @@ public class CameraMovement : MonoBehaviour
     public float mouseScrollWheel;
 
     public float speed = 10f;
-    float zoom;
-    float zoomNasobek;
+    public float dragSpeed = 50f;
+    public float zoom;
+    public float zoomNasobek;
 
     Vector2 movement;
 
-    // Start is called before the first frame update
     void Start()
     {
         zoom = virtualCam.m_Lens.OrthographicSize;
     }
 
-    // Update is called once per frame
     void Update()
     {
         virtualCam.m_Lens.OrthographicSize = zoom;
@@ -45,6 +44,12 @@ public class CameraMovement : MonoBehaviour
         else if(Input.GetAxis("Mouse ScrollWheel") < -1 && zoom < 50) 
         {
             zoom += 4;
+        }
+
+        if (Input.GetMouseButton(0)) // Movement pomocí myše
+        {
+            Vector2 dragDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+            transform.Translate(-dragDelta * dragSpeed * Time.deltaTime * zoomNasobek, Space.World);
         }
     }
 }

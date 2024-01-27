@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +9,7 @@ public class WorldController : MonoBehaviour
 
     bool tilesVisible = true;
 
-    // List pro uchov·v·nÌ vöech SpriteRenderers
+    // List pro uchov√°v√°n√≠ v≈°ech SpriteRenderers
     List<SpriteRenderer> tileRenderers = new List<SpriteRenderer>();
 
     // Start is called before the first frame update
@@ -17,7 +17,7 @@ public class WorldController : MonoBehaviour
     {
         world = new World();
 
-        // Vytvo¯Ìm gameObject, kter˝ vizu·lnÏ uk·ûe tiles
+        // Vytvo√∏√≠m gameObject, kter√Ω vizu√°ln√¨ uk√°≈æe tiles
         for (int x = 0; x < world.width; x++)
         {
             for (int y = 0; y < world.height; y++)
@@ -32,7 +32,7 @@ public class WorldController : MonoBehaviour
                 SpriteRenderer tile_sr = tile_go.AddComponent<SpriteRenderer>();
                 tile_sr.sprite = floorSprite;
 
-                // P¯id·nÌ SpriteRenderer do listu
+                // P√∏id√°n√≠ SpriteRenderer do listu
                 tileRenderers.Add(tile_sr);
             }
         }
@@ -40,12 +40,12 @@ public class WorldController : MonoBehaviour
 
     void Update()
     {
-        // Sledov·nÌ stisknutÌ kl·vesy E
+        // Sledov√°n√≠ stisknut√≠ kl√°vesy E
         if (Input.GetKeyDown(KeyCode.E))
         {
             tilesVisible = !tilesVisible;
 
-            // NastavenÌ viditelnosti pro vöechny SpriteRenderers v listu
+            // Nastaven√≠ viditelnosti pro v≈°echny SpriteRenderers v listu
             foreach (SpriteRenderer tileRenderer in tileRenderers)
             {
                 tileRenderer.enabled = tilesVisible;
