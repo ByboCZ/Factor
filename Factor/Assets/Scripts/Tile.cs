@@ -2,24 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tile
+public class Tile : MonoBehaviour
 {
-    public enum TileType { Empty, Floor};
+    private SpriteRenderer spriteRenderer;
 
-    TileType type = TileType.Empty;
-
-    //Nìco do budoucna
-    LooseObject looseObjcet; //tohle jsou random itemy na zemi
-    InstalledObject installedObjcet; // tohle jsou vìci co placeneš jako tøeba dveøe nebo podávcí pás
+    private void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     World world; //možnost více levelù/svìtù
     int x;
     int y;
 
-    public Tile( World world, int x, int y)
+    // Empty constructor required by MonoBehaviour
+    private void Awake()
+    {
+    }
+
+    public void Initialize(World world, int x, int y)
     {
         this.world = world;
         this.x = x;
         this.y = y;
     }
+
+    private void OnMouseEnter()
+    {
+        spriteRenderer.color = Color.green;
+    }
+
+    private void OnMouseExit()
+    {
+        spriteRenderer.color = Color.white;
+    }
+
 }
