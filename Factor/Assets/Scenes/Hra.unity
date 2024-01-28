@@ -257,6 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectPlacer: {fileID: 2131054586}
   tilePrefab: {fileID: 8561764997381216629, guid: fe21d39ad40ae1248817b22f464db62c, type: 3}
+  copperTile: {fileID: 8561764997381216629, guid: 751fc4eadf6473c4688503fde0f5882e, type: 3}
 --- !u!4 &419613206
 Transform:
   m_ObjectHideFlags: 0
@@ -741,7 +742,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 90}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1346898862
@@ -1065,6 +1066,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectPrefab: {fileID: 5304097493691705010, guid: f4b24abd1e2a5b945bb820410ef2c062, type: 3}
   building: 0
+  placeble: 0
 --- !u!4 &2131054587
 Transform:
   m_ObjectHideFlags: 0

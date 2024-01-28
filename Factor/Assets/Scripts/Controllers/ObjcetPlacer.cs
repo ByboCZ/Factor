@@ -8,6 +8,7 @@ public class ObjectPlacer : MonoBehaviour
     public GameObject objectPrefab;
 
     public bool building = false;
+    public bool placeble = false;
     #endregion
 
     private void Awake()
@@ -39,5 +40,9 @@ public class ObjectPlacer : MonoBehaviour
     public void Building()
     {
         building = !building;
+    }
+    public void Placeble(bool status)
+    {
+        placeble = status;
     }
 }

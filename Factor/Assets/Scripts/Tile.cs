@@ -30,7 +30,16 @@ public class Tile : MonoBehaviour
     {
         if (objectPlacer != null && objectPlacer.building)
         {
-            spriteRenderer.color = Color.green;
+            if(this.tag == "Resource")
+            {
+                spriteRenderer.color = Color.green;
+                objectPlacer.Placeble(true);
+            }
+            else
+            {
+                spriteRenderer.color = Color.red;
+                objectPlacer.Placeble(false);
+            }
         }
     }
 

@@ -10,6 +10,7 @@ public class GridManager : MonoBehaviour
 
     public ObjectPlacer objectPlacer;
     public Tile tilePrefab;
+    public Tile copperTile;
     World world;
 
     bool tilesVisible = true;
@@ -33,9 +34,13 @@ public class GridManager : MonoBehaviour
                 tile.gameObject.SetActive(tilesVisible);
             }
         }
-        if (Input.GetKeyDown(KeyCode.F) && objectPlacer.building)
+        if (Input.GetKeyDown(KeyCode.F) && objectPlacer.building && objectPlacer.placeble)
         {
             objectPlacer.PlaceObjectOnTile(2, 2);
+        }
+        if (Input.GetKeyDown(KeyCode.Escape) && objectPlacer.building)
+        {
+            objectPlacer.Building();
         }
     }
 
@@ -46,11 +51,23 @@ public class GridManager : MonoBehaviour
         {
             for (int y = 0; y < world.height; y++)
             {
-                var spawnedTile = Instantiate(tilePrefab, new Vector3(x, y), Quaternion.identity);
-                spawnedTile.name = $"Tile {x} {y}";
-                spawnedTile.Initialize(world, x, y);
+                int randomInt = UnityEngine.Random.Range(1, 101);
+                if (randomInt == 90)
+                {
+                    var spawnedTile = Instantiate(copperTile, new Vector3(x, y), Quaternion.identity);
+                    spawnedTile.name = $"Tile {x} {y}";
+                    spawnedTile.Initialize(world, x, y);
 
-                tiles[new Vector2(x, y)] = spawnedTile;
+                    tiles[new Vector2(x, y)] = spawnedTile;
+                }
+                else
+                {
+                    var spawnedTile = Instantiate(tilePrefab, new Vector3(x, y), Quaternion.identity);
+                    spawnedTile.name = $"Tile {x} {y}";
+                    spawnedTile.Initialize(world, x, y);
+
+                    tiles[new Vector2(x, y)] = spawnedTile;
+                }
             }
         }
     }
