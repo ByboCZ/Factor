@@ -12,6 +12,7 @@ public class IconManager : MonoBehaviour
     public int zoomCount = 2;
     public float test;
     int pomocna = 2;
+
     // Start is called before the first frame update
     void Start()
     {

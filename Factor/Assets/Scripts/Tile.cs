@@ -4,21 +4,19 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    #region Variables
     private SpriteRenderer spriteRenderer;
-    //public GameObject objectPrefab;  //kdyû je tohle zakomentovan˝ tak ty if projdou vûdy, aù je to false nebo true. Kdyû to odkomentujeö, tak neprojdou nikdy
+    private ObjectPlacer objectPlacer;
+    World world;
+
+    int x;
+    int y;
+    #endregion
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
-    World world; //moûnost vÌce level˘/svÏt˘
-    int x;
-    int y;
-
-    // Empty constructor required by MonoBehaviour
-    private void Awake()
-    {
+        objectPlacer = ObjectPlacerManager.Instance.CurrentObjectPlacer;
     }
 
     public void Initialize(World world, int x, int y)
@@ -28,13 +26,10 @@ public class Tile : MonoBehaviour
         this.y = y;
     }
 
-    public bool building = false;
-
     public void OnMouseEnter()
     {
-        if (building)
+        if (objectPlacer != null && objectPlacer.building)
         {
-            Debug.Log("sdtdfgdgfsgdfsgfdg");
             spriteRenderer.color = Color.green;
         }
     }
@@ -43,28 +38,4 @@ public class Tile : MonoBehaviour
     {
         spriteRenderer.color = Color.white;
     }
-
-    public void OnMouseDown()
-    {
-        if (building)
-        {
-            //PlaceObjectOnTile(this.x, this.y, 1, 1);
-            building = false;
-        }
-    }
-/*
-    public void PlaceObjectOnTile(int startX, int startY, int width, int height)
-    {
-        GameObject object_go = Instantiate(objectPrefab);
-
-        float centerX = startX + (width - 1) / 2.0f;
-        float centerY = startY + (height - 1) / 2.0f;
-
-        object_go.transform.position = new Vector3(centerX, centerY, -1);
-        object_go.transform.localScale = new Vector3(width, height, 1);
-    }
-    */
 }
-
-
-//ten krump·Ë m· komponent event trigger, tam je propojenej tile skript a je tam specifikovan˝, ûe to promÏnÌ bool na true

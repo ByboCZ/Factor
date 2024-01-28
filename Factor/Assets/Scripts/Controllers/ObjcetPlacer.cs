@@ -4,7 +4,16 @@ using UnityEngine;
 
 public class ObjectPlacer : MonoBehaviour
 {
+    #region Variables
     public GameObject objectPrefab;
+
+    public bool building = false;
+    #endregion
+
+    private void Awake()
+    {
+        ObjectPlacerManager.Instance.CurrentObjectPlacer = this;
+    }
 
     // Spawne objekt na curzoru myši
     public void PlaceObjectOnTile(int width, int height)
@@ -25,7 +34,10 @@ public class ObjectPlacer : MonoBehaviour
 
         object_go.transform.position = new Vector3(centerX - 1, centerY - 1, -1);
         object_go.transform.localScale = new Vector3(width, height, 1);
+    }
 
-
+    public void Building()
+    {
+        building = !building;
     }
 }

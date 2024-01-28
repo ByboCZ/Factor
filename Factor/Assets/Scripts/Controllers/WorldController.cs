@@ -6,10 +6,10 @@ using UnityEngine;
 public class GridManager : MonoBehaviour
 {
     #region Variables
-    private Dictionary<Vector2, Tile> _tiles;
+    private Dictionary<Vector2, Tile> tiles;
 
     public ObjectPlacer objectPlacer;
-    public Tile _tilePrefab;
+    public Tile tilePrefab;
     World world;
 
     bool tilesVisible = true;
@@ -26,38 +26,38 @@ public class GridManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             tilesVisible = !tilesVisible;
+            objectPlacer.building = false;
 
-            foreach (var tile in _tiles.Values)
+            foreach (var tile in tiles.Values)
             {
                 tile.gameObject.SetActive(tilesVisible);
             }
         }
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && objectPlacer.building)
         {
             objectPlacer.PlaceObjectOnTile(2, 2);
         }
     }
 
-
     void GenerateGrid()
     {
-        _tiles = new Dictionary<Vector2, Tile>();
+        tiles = new Dictionary<Vector2, Tile>();
         for (int x = 0; x < world.width; x++)
         {
             for (int y = 0; y < world.height; y++)
             {
-                var spawnedTile = Instantiate(_tilePrefab, new Vector3(x, y), Quaternion.identity);
+                var spawnedTile = Instantiate(tilePrefab, new Vector3(x, y), Quaternion.identity);
                 spawnedTile.name = $"Tile {x} {y}";
                 spawnedTile.Initialize(world, x, y);
 
-                _tiles[new Vector2(x, y)] = spawnedTile;
+                tiles[new Vector2(x, y)] = spawnedTile;
             }
         }
     }
 
     public Tile GetTileAtPosition(Vector2 pos)
     {
-        if (_tiles.TryGetValue(pos, out var tile)) return tile;
+        if (tiles.TryGetValue(pos, out var tile)) return tile;
         return null;
     }
 }
