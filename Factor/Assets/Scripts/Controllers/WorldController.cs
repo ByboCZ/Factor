@@ -32,7 +32,7 @@ public class GridManager : MonoBehaviour
                 tile.gameObject.SetActive(tilesVisible);
             }
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             objectPlacer.PlaceObjectOnTile(2, 2);
         }
