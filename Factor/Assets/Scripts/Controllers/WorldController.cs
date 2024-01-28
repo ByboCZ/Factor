@@ -19,7 +19,6 @@ public class GridManager : MonoBehaviour
     {
         world = new World();
         GenerateGrid();
-        objectPlacer.PlaceObjectOnTile(2, 2, 2, 2);
     }
 
     private void Update()
@@ -33,7 +32,12 @@ public class GridManager : MonoBehaviour
                 tile.gameObject.SetActive(tilesVisible);
             }
         }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            objectPlacer.PlaceObjectOnTile(2, 2);
+        }
     }
+
 
     void GenerateGrid()
     {
