@@ -5,8 +5,10 @@ using Cinemachine;
 
 public class CameraMovement : MonoBehaviour
 {
+    #region Variables
     public Rigidbody2D rb;
     public CinemachineVirtualCamera virtualCam;
+    public GridManager gridManager;
 
     public float horizontalInput;
     public float verticalInput;
@@ -18,7 +20,7 @@ public class CameraMovement : MonoBehaviour
     public float zoomNasobek;
 
     Vector2 movement;
-
+    #endregion
     void Start()
     {
         zoom = virtualCam.m_Lens.OrthographicSize;
@@ -50,6 +52,12 @@ public class CameraMovement : MonoBehaviour
         {
             Vector2 dragDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
             transform.Translate(-dragDelta * dragSpeed * Time.deltaTime * zoomNasobek, Space.World);
+        }
+
+        if (zoom < 20)
+        {
+            Debug.Log("Zoom is less than 20, calling CameraGenerate");
+            gridManager.CameraGenerate();
         }
     }
 }
