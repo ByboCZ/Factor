@@ -53,11 +53,6 @@ public class CameraMovement : MonoBehaviour
             Vector2 dragDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
             transform.Translate(-dragDelta * dragSpeed * Time.deltaTime * zoomNasobek, Space.World);
         }
-
-        if (zoom < 20)
-        {
-            Debug.Log("Zoom is less than 20, calling CameraGenerate");
-            gridManager.CameraGenerate();
-        }
+        //gridManager.CameraGenerate();
     }
 }

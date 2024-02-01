@@ -60,14 +60,6 @@ public class GridManager : MonoBehaviour
 
                     tiles[new Vector2(x, y)] = spawnedTile;
                 }
-                else
-                {
-                    var spawnedTile = Instantiate(tilePrefab, new Vector3(x, y), Quaternion.identity);
-                    spawnedTile.name = $"Tile {x} {y}";
-                    spawnedTile.Initialize(world, x, y);
-
-                    tiles[new Vector2(x, y)] = spawnedTile;
-                }
             }
         }
     }
@@ -79,41 +71,22 @@ public class GridManager : MonoBehaviour
         // Get the camera component
         Camera mainCamera = Camera.main;
 
-        // Calculate the camera's boundaries in world space
-        float cameraHeight = 2f * mainCamera.orthographicSize;
-        float cameraWidth = cameraHeight * mainCamera.aspect;
+        // Calculate the camera's position
         Vector3 cameraPosition = mainCamera.transform.position;
 
-        float halfCameraWidth = cameraWidth / 2f;
-        float halfCameraHeight = cameraHeight / 2f;
-
-        // Calculate the visible area
-        float visibleMinX = Mathf.Floor(cameraPosition.x - halfCameraWidth);
-        float visibleMaxX = Mathf.Floor(cameraPosition.x + halfCameraWidth);
-        float visibleMinY = Mathf.Floor(cameraPosition.y - halfCameraHeight);
-        float visibleMaxY = Mathf.Floor(cameraPosition.y + halfCameraHeight);
-
         // Generate tiles dynamically
-        for (float x = visibleMinX; x <= visibleMaxX; x++)
+        for (float x = cameraPosition.x - mainCamera.orthographicSize * mainCamera.aspect; x <= cameraPosition.x + mainCamera.orthographicSize * mainCamera.aspect; x++)
         {
-            for (float y = visibleMinY; y <= visibleMaxY; y++)
+            for (float y = cameraPosition.y - mainCamera.orthographicSize; y <= cameraPosition.y + mainCamera.orthographicSize; y++)
             {
                 Vector2 tilePosition = new Vector2(x, y);
 
                 // Check if the tile already exists
                 if (!tiles.ContainsKey(tilePosition) && !TileExistsAtPosition(tilePosition))
                 {
-                    int randomInt = UnityEngine.Random.Range(1, 101);
                     Tile spawnedTile = null;
 
-                    if (randomInt == 90)
-                    {
-                        spawnedTile = Instantiate(copperTile, new Vector3(x, y), Quaternion.identity);
-                    }
-                    else
-                    {
-                        spawnedTile = Instantiate(tilePrefab, new Vector3(x, y), Quaternion.identity);
-                    }
+                    spawnedTile = Instantiate(tilePrefab, new Vector3(x, y), Quaternion.identity);
 
                     spawnedTile.name = $"Tile {x} {y}";
                     spawnedTile.Initialize(world, Mathf.FloorToInt(x), Mathf.FloorToInt(y));
@@ -123,6 +96,7 @@ public class GridManager : MonoBehaviour
             }
         }
     }
+
 
 
     bool TileExistsAtPosition(Vector2 position)
