@@ -16,20 +16,6 @@ public class World
         this.height = height;
 
         tiles = new Tile[width, height];
-
-        //naèítám celý herní svìt
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                var spawnedTile = new GameObject().AddComponent<Tile>();
-                spawnedTile.name = $"Tile {x} {y}";
-                spawnedTile.Initialize(this, x, y);
-
-                tiles[x, y] = spawnedTile;
-            }
-        }
-
         Debug.Log("World created with " + (width*height) + " tiles.");
     }
 

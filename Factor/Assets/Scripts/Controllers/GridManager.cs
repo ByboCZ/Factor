@@ -9,7 +9,6 @@ public class GridManager : MonoBehaviour
     private Dictionary<Vector2, Tile> tiles;
 
     public ObjectPlacer objectPlacer;
-    public Tile tilePrefab;
     public Tile copperTile;
     World world;
 
@@ -54,7 +53,7 @@ public class GridManager : MonoBehaviour
                 int randomInt = UnityEngine.Random.Range(1, 101);
                 if (randomInt == 90)
                 {
-                    var spawnedTile = Instantiate(copperTile, new Vector3(x, y), Quaternion.identity);
+                    var spawnedTile = Instantiate(copperTile, new Vector3(x, y, 1), Quaternion.identity);
                     spawnedTile.name = $"Tile {x} {y}";
                     spawnedTile.Initialize(world, x, y);
 
@@ -85,9 +84,6 @@ public class GridManager : MonoBehaviour
                 if (!tiles.ContainsKey(tilePosition) && !TileExistsAtPosition(tilePosition))
                 {
                     Tile spawnedTile = null;
-
-                    spawnedTile = Instantiate(tilePrefab, new Vector3(x, y), Quaternion.identity);
-
                     spawnedTile.name = $"Tile {x} {y}";
                     spawnedTile.Initialize(world, Mathf.FloorToInt(x), Mathf.FloorToInt(y));
 
@@ -96,8 +92,6 @@ public class GridManager : MonoBehaviour
             }
         }
     }
-
-
 
     bool TileExistsAtPosition(Vector2 position)
     {
