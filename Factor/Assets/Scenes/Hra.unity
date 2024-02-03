@@ -1199,7 +1199,7 @@ MonoBehaviour:
   horizontalInput: 0
   verticalInput: 0
   mouseScrollWheel: 0
-  speed: 10
+  speed: 20
   dragSpeed: 50
   zoom: 0
   zoomNasobek: 0
@@ -1232,7 +1232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb4c0867723cfab4ea8f1c865c636ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectPrefab: {fileID: 5304097493691705010, guid: f4b24abd1e2a5b945bb820410ef2c062, type: 3}
+  objectPrefab: {fileID: 6537164925497245644, guid: 92eb2560f1bd36a4785b740b559e8eed, type: 3}
   building: 0
   placeble: 0
 --- !u!4 &2131054587

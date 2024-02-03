@@ -9,6 +9,23 @@ public class ObjectPlacer : MonoBehaviour
 
     public bool building = false;
     public bool placeble = false;
+
+    public static Dir GetNextDir(Dir dir)
+    {
+        switch (dir)
+        {
+            default:
+                case Dir.Down:  return Dir.Left;
+                case Dir.Left:  return Dir.Up;
+                case Dir.Up:    return Dir.Right;
+                case Dir.Right: return Dir.Down;
+        }
+    }
+
+    public enum Dir
+    {
+        Down, Up, Left, Right
+    }
     #endregion
 
     private void Awake()
@@ -17,34 +34,40 @@ public class ObjectPlacer : MonoBehaviour
     }
 
     // Spawne objekt na curzoru myši
-    public void PlaceObjectOnTile(int width, int height)
+    public void PlaceObjectOnTile(int width, int height, int dir)
     {
         Vector3 mousePosition = Input.mousePosition;
-
-        // Convert the mouse position to world coordinates
         Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
-        // Round to the nearest integer to get tile coordinates
         int mouseX = Mathf.RoundToInt(worldMousePosition.x);
         int mouseY = Mathf.RoundToInt(worldMousePosition.y);
-
-        GameObject object_go = Instantiate(objectPrefab);
-
         float centerX = mouseX + (width - 1) / 2.0f;
         float centerY = mouseY + (height - 1) / 2.0f;
 
-        object_go.transform.position = new Vector3(centerX - 1, centerY - 1, 1);
+        GameObject object_go = Instantiate(objectPrefab);
+
+        object_go.transform.position = new Vector3(centerX, centerY, 1);
         object_go.transform.localScale = new Vector3(width, height, 1);
+        object_go.transform.rotation = Quaternion.Euler(0, 0, dir);
     }
 
     public void Building() 
     {
         building = !building;
-        Debug.Log("Klik");
     } 
     public void Placeble(bool status)
     {
         placeble = status;
-        Debug.Log("Status");
-    } 
+    }
+    public int GetRotationAngle(Dir dir)
+    {
+        switch (dir)
+        {
+            default:
+            case Dir.Down: return 0;
+            case Dir.Left: return 90;
+            case Dir.Up: return 180;
+            case Dir.Right: return 270;
+        }
+    }
 }

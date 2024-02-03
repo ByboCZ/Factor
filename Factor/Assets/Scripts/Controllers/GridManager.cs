@@ -9,6 +9,7 @@ public class GridManager : MonoBehaviour
     private Dictionary<Vector2, Tile> tiles;
 
     public ObjectPlacer objectPlacer;
+    private ObjectPlacer.Dir dir = ObjectPlacer.Dir.Down;
     public Tile copperTile;
     World world;
 
@@ -29,18 +30,19 @@ public class GridManager : MonoBehaviour
             objectPlacer.building = false;
 
             foreach (var tile in tiles.Values)
-            {
                 tile.gameObject.SetActive(tilesVisible);
-            }
         }
+
+
         if (Input.GetKeyDown(KeyCode.F) && objectPlacer.building && objectPlacer.placeble)
         {
-            objectPlacer.PlaceObjectOnTile(2, 2);
+            if (Input.GetKeyDown(KeyCode.R))
+                dir = ObjectPlacer.GetNextDir(dir);
+
+            objectPlacer.PlaceObjectOnTile(1, 1, objectPlacer.GetRotationAngle(dir));
         }
         if (Input.GetKeyDown(KeyCode.Escape) && objectPlacer.building)
-        {
-            objectPlacer.Building();
-        }       
+            objectPlacer.Building(); 
     }
 
     void GenerateGrid()
@@ -51,17 +53,37 @@ public class GridManager : MonoBehaviour
             for (int y = 0; y < world.height; y++)
             {
                 int randomInt = UnityEngine.Random.Range(1, 101);
-                if (randomInt == 90)
+                if (randomInt == 100)
                 {
-                    var spawnedTile = Instantiate(copperTile, new Vector3(x, y, 1), Quaternion.identity);
-                    spawnedTile.name = $"Tile {x} {y}";
-                    spawnedTile.Initialize(world, x, y);
+                    // Adjust cluster size and probability as needed
+                    int clusterSize = UnityEngine.Random.Range(1, 10);
+                    int clusterProbability = 30;
 
-                    tiles[new Vector2(x, y)] = spawnedTile;
+                    if (UnityEngine.Random.Range(1, 101) <= clusterProbability)
+                    {
+                        for (int offsetX = 0; offsetX < clusterSize; offsetX++)
+                        {
+                            for (int offsetY = 0; offsetY < clusterSize; offsetY++)
+                            {
+                                int clusterX = x + offsetX;
+                                int clusterY = y + offsetY;
+
+                                if (clusterX < world.width && clusterY < world.height)
+                                {
+                                    var spawnedTile = Instantiate(copperTile, new Vector3(clusterX, clusterY, 1), Quaternion.identity);
+                                    spawnedTile.name = $"Tile {clusterX} {clusterY}";
+                                    spawnedTile.Initialize(world, clusterX, clusterY);
+
+                                    tiles[new Vector2(clusterX, clusterY)] = spawnedTile;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
     }
+
 
     public void CameraGenerate()
     {

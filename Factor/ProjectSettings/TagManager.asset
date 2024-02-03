@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Tiles
   - Resource
+  - Miner
   layers:
   - Default
   - TransparentFX
